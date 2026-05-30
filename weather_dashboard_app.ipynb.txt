@@ -1,0 +1,121 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "AZAgvjjYHlqd",
+        "outputId": "2ae5893b-b232-4fe6-f4e2-12f938697271"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Files created successfully!\n"
+          ]
+        }
+      ],
+      "source": [
+        "html_code = \"\"\"\n",
+        "<!DOCTYPE html>\n",
+        "<html>\n",
+        "<head>\n",
+        "<title>Weather Dashboard</title>\n",
+        "<link rel=\"stylesheet\" href=\"style.css\">\n",
+        "</head>\n",
+        "<body>\n",
+        "\n",
+        "<h1>Weather Dashboard</h1>\n",
+        "\n",
+        "<input type=\"text\" id=\"city\" placeholder=\"Enter City Name\">\n",
+        "<button onclick=\"getWeather()\">Search</button>\n",
+        "\n",
+        "<div id=\"weather\"></div>\n",
+        "\n",
+        "<script src=\"script.js\"></script>\n",
+        "\n",
+        "</body>\n",
+        "</html>\n",
+        "\"\"\"\n",
+        "\n",
+        "css_code = \"\"\"\n",
+        "body{\n",
+        "    font-family: Arial;\n",
+        "        text-align:center;\n",
+        "            margin-top:50px;\n",
+        "            }\n",
+        "\n",
+        "            input{\n",
+        "                padding:10px;\n",
+        "                }\n",
+        "\n",
+        "                button{\n",
+        "                    padding:10px;\n",
+        "                        margin-left:5px;\n",
+        "                        }\n",
+        "\n",
+        "                        #weather{\n",
+        "                            margin-top:20px;\n",
+        "                                font-size:18px;\n",
+        "                                }\n",
+        "                                \"\"\"\n",
+        "\n",
+        "js_code = \"\"\"\n",
+        "async function getWeather(){\n",
+        "\n",
+        "    let city = document.getElementById(\"city\").value;\n",
+        "\n",
+        "        try{\n",
+        "\n",
+        "                let response = await fetch(\n",
+        "                        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY&units=metric`\n",
+        "                                );\n",
+        "\n",
+        "                                        let data = await response.json();\n",
+        "\n",
+        "                                                document.getElementById(\"weather\").innerHTML =\n",
+        "                                                        `Temperature: ${data.main.temp}°C <br>\n",
+        "                                                                 Humidity: ${data.main.humidity}% <br>\n",
+        "                                                                          Wind Speed: ${data.wind.speed} m/s`;\n",
+        "\n",
+        "                                                                              }\n",
+        "\n",
+        "                                                                                  catch(error){\n",
+        "                                                                                          document.getElementById(\"weather\").innerHTML =\n",
+        "                                                                                                  \"Error fetching weather data\";\n",
+        "                                                                                                      }\n",
+        "                                                                                                      }\n",
+        "                                                                                                      \"\"\"\n",
+        "\n",
+        "with open(\"index.html\",\"w\") as f:\n",
+        "    f.write(html_code)\n",
+        "\n",
+        "with open(\"style.css\",\"w\") as f:\n",
+        "    f.write(css_code)\n",
+        "\n",
+        "with open(\"script.js\",\"w\") as f:\n",
+        "    f.write(js_code)\n",
+        "\n",
+        "print(\"Files created successfully!\")"
+      ]
+    }
+  ]
+}
